@@ -1,0 +1,36 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+<title> Portfolio </title>
+</head>
+<body ng-app='PortfolioApp' ng-controller='mainController'>
+<div class="banner">
+    <div ng-hide="nameSubmitted">
+        <input type="text" ng-model="name"  required>
+        <button ng-click="submitName()" ng-show={{name.length <= 0}}>Submit Name</button>
+    </div>
+    <h1 ng-show='nameSubmitted'> Welcome, {{ name }} </h1>
+</div>
+<div class="menu">
+</div>
+<div class="content" ng-view> 
+</div>
+</body>
+
+<script>
+    var app = angular.module("PortfolioApp", ["ngRoute"]);
+    app.controller('mainController', function($scope)
+    {
+        $scope.name='';
+        $scope.nameSubmitted=false;
+        $scope.submitName = function()
+        {
+            $scope.nameSubmitted = true;
+        }
+    });
+
+
+
+</script>
+</html>
