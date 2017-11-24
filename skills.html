@@ -6,8 +6,30 @@
         
     </tr>
     <tr>
-        <td>
+        <td >
+            <p ng-repeat="x in skillsHave">{{ x }}</p>      
         </td>
+        <td>
+           <p ng-repeat="y in skillsNeeded">{{ y }}</p>     
+        </td>      
     </tr>
-
+    <tr>
+       <td>
+          <input type="text" ng-keypress="addHaveSkill($event,haveSkillName)" ng-model='haveSkillName'>
+          
+       </td>
+       <td>
+          <input type="text" ng-keypress="addNeededSkill($event,needSkillName)" ng-model='needSkillName'>
+                 
+    </td>
+    </tr>
+    <tr>
+        <td >
+            <p ng-show="itemExists(skillsHave, haveSkillName)"> Skill {{ haveSkillName }} is already in the list</p>     
+        </td>
+        <td>
+           <p ng-show="itemExists(skillsNeeded, needSkillName)"> Skill {{ needSkillName}} is already in the list</p>    
+        </td>      
+    </tr>
 <table>
+
