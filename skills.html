@@ -7,10 +7,18 @@
     </tr>
     <tr>
         <td >
-            <p ng-repeat="x in skillsHave">{{ x }}</p>      
+            <p ng-repeat="x in skillsHave">{{ x }}
+                <span ng-click='deleteItem(skillsHave, x)'>
+                    x
+                </span>
+            </p>      
         </td>
         <td>
-           <p ng-repeat="y in skillsNeeded">{{ y }}</p>     
+            <p ng-repeat="y in skillsNeeded">{{ y }}
+                <span ng-click='deleteItem(skillsNeeded, y)'>
+                    x
+                </span>
+            </p>     
         </td>      
     </tr>
     <tr>
