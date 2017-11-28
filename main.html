@@ -1,120 +1,30 @@
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
-<link rel="stylesheet" href="style.css">
-<title> Portfolio </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+    <script src='Controllers/mainController.js'></script>
+    <script src='Controllers/skillsController.js'></script>
+    <link rel="stylesheet" href="style.css">
+    <title> Portfolio </title>
 </head>
 <body ng-app='PortfolioApp' ng-controller='mainController'>
-<div class="banner">
-    <div class='bannerContainer' ng-hide="nameSubmitted">
-        <input type="text" ng-model="name"  required>
-        <button ng-click="submitName()" ng-show="name.length > 0">Submit</button>
+
+    <div class="banner">
+        <div class='bannerContainer' ng-hide="nameSubmitted">
+            <input type="text" ng-model="name"  required>
+            <button ng-click="submitName()" ng-show="name.length > 0">Submit</button>
+        </div>
+        <h1 ng-show='nameSubmitted'> Welcome, {{ name }} </h1>
     </div>
-    <h1 ng-show='nameSubmitted'> Welcome, {{ name }} </h1>
-</div>
-<div class="menu">
-    <a href="#!/home" class={{active[0]}} ng-click="changeActive(0)">Home</a>
-    <a href="#!/skills" class={{active[1]}} ng-click="changeActive(1)">Skills</a>
-    <a href="#!/contacts" class={{active[2]}} ng-click="changeActive(2)">Contacts</a>
-</div>
-<div class="content" ng-view> 
-</div>
+
+    <div class="menu">
+        <a href="#!/home" class={{active[0]}} >Home</a>
+        <a href="#!/skills" class={{active[1]}} >Skills</a>
+        <a href="#!/contacts" class={{active[2]}} >Contacts</a>
+    </div>
+
+    <div class="content" ng-view> </div>
 </body>
 
 
-
-<script>
-    var app = angular.module("PortfolioApp", ["ngRoute"]);
-     /* Routing. */
-    app.config(function($routeProvider) {
-    $routeProvider.when("/home", {
-        templateUrl : "home.html"
-    })
-    .when("/skills", {
-        templateUrl : "skills.html",
-        controller: "skillsController"
-    })
-    .when("/contacts", {
-        templateUrl : "contacts.html"
-    })
-    .otherwise({
-        redirectTo: '/home',
-    });
-    });
-
-    /* Main Controller. */
-    app.controller('mainController', function($scope)
-    {
-    
-        $scope.name='';
-        $scope.nameSubmitted=false;
-        $scope.active=['active', 'inactive', 'inactive'];
-        $scope.submitName = function()
-        {
-            $scope.nameSubmitted = true;
-        }
-        $scope.changeActive = function(activeInd)
-        {
-            for (i = 0; i < $scope.active.length; i++) { 
-                activeInd == i ? $scope.active[i]='active' : $scope.active[i]='inactive';
-            }
-        }
-        
-        
-    });
-
-    /* Controller for the 'Skills' tab. */
-    app.controller('skillsController', function($scope)
-    {
-        $scope.skillsNeeded = ['JavaScript', 'AngularJS', 'Spring', 'Hibirnate', 'ExtJS'];
-        $scope.skillsHave = ['C', 'C++', 'Java', 'Networking'];
-        $scope.haveSkillName = '';
-        $scope.needSkillName = '';
-        $scope.addHaveSkill = function(event,item)
-        {
-            if (event.keyCode == 13)
-            {
-                if($scope.itemExists($scope.skillsNeeded, item))
-                {
-                    $scope.deleteItem($scope.skillsNeeded,item);
-                }
-                $scope.skillsHave.push(item);
-                $scope.haveSkillName = '';
-            }        
-        }
-        $scope.addNeededSkill = function(event,item)
-        {
-            if (event.keyCode == 13)
-            {
-                if($scope.itemExists($scope.skillsHave,item))
-                {
-                    $scope.deleteItem($scope.skillsHave,item);
-                }
-                $scope.skillsNeeded.push(item);
-                $scope.needSkillName = '';
-            }
-        }
-        $scope.itemExists = function(array, item)
-        {
-            var index = array.indexOf(item);
-            if(index == -1)
-               return false;
-            else 
-               return true;
-        }
-        $scope.deleteItem = function(array, item)
-        {
-            alert(item);
-            var index = array.indexOf(item);  
-            if(index != -1)
-            {
-                array.splice(index, 1);
-            }    
-        }
-
-    });
-   
-
-</script>
 </html>
